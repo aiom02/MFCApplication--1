@@ -181,7 +181,7 @@ void CMFCApplication1View::On32772()
 void CMFCApplication1View::On32773()
 {
 
-
+	
 
 	// TODO: 在此添加命令处理程序代码
 }
