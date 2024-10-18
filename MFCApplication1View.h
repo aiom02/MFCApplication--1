@@ -44,6 +44,7 @@ public:
 	afx_msg void On32771();
 	afx_msg void On32772();
 	afx_msg void On32773();
+	afx_msg void On32774();
 };
 
 #ifndef _DEBUG  // MFCApplication1View.cpp 中的调试版本

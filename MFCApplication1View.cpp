@@ -2,6 +2,11 @@
 // MFCApplication1View.cpp: CMFCApplication1View 类的实现
 //
 
+
+
+
+
+
 #include "pch.h"
 #include "framework.h"
 // SHARED_HANDLERS 可以在实现预览、缩略图和搜索筛选器句柄的
@@ -29,7 +34,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication1View, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_COMMAND(ID_32771, &CMFCApplication1View::On32771)
 	ON_COMMAND(ID_32772, &CMFCApplication1View::On32772)
-	ON_COMMAND(ID_32773, &CMFCApplication1View::On32773)
+
+	ON_COMMAND(ID_32774, &CMFCApplication1View::On32774)
 END_MESSAGE_MAP()
 
 // CMFCApplication1View 构造/析构
@@ -110,7 +116,7 @@ CMFCApplication1Doc* CMFCApplication1View::GetDocument() const // 非调试版�
 
 // CMFCApplication1View 消息处理程序
 
-
+//画出三角形代码，
 void CMFCApplication1View::On32771()
 {
 	// TODO: 在此添加命令处理程序代码
@@ -122,6 +128,7 @@ void CMFCApplication1View::On32771()
 	dc.Polygon(pt, 3);
 }
 
+//画出矩形由外向内的动画代码
 
 void CMFCApplication1View::On32772()
 {
@@ -171,17 +178,41 @@ void CMFCApplication1View::On32772()
 	// 恢复原来的画笔
 	dc.SelectObject(oldPen);
 
-
-
-
-
 }
 
 
-void CMFCApplication1View::On32773()
+//画出小球的动画代码
+
+void paintBall(int x, int y, int r, CDC* pDC)
 {
+	double angle, decrement;
+	int colorValue;
 
-	
+	decrement = r / 255.0;  // 控制每次绘制的圆的半径递减量
 
-	// TODO: 在此添加命令处理程序代码
+	// 从外向内绘制小球，颜色从黑到白
+	for (int w = r; w >= 0; w--) {
+		colorValue = static_cast<int>(255 * (1.0 - (double)w / r)); // 计算当前颜色值，从 0 到 255 逐渐变化
+
+		COLORREF color = RGB(colorValue, colorValue, colorValue); // 设置当前圆的颜色
+
+		// 通过绘制每个像素点来画圆
+		for (angle = 0; angle < 2 * 3.14159265358979323846; angle += 0.01) { // 角度变化控制圆周上的点
+			int px = static_cast<int>(x + w * cos(angle));  // 圆上某一点的 x 坐标
+			int py = static_cast<int>(y + w * sin(angle));  // 圆上某一点的 y 坐标
+
+			pDC->SetPixel(px, py, color);  // 设置该点的颜色
+		}
+	}
+}
+
+
+
+
+void CMFCApplication1View::On32774()
+{
+	CDC* pDC = GetDC(); // 获取设备上下文
+	paintBall(300, 300, 50, pDC); // 在 (300, 300) 绘制半径为 100 的小球，延迟为 20ms
+	ReleaseDC(pDC); // 释放设备上下文
+
 }
