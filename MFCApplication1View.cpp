@@ -1,10 +1,12 @@
 ﻿
 // MFCApplication1View.cpp: CMFCApplication1View 类的实现
 //
+/*
 
+Author: aiom02
 
-
-
+Date: October 18, 2024
+*/
 
 
 #include "pch.h"
@@ -205,7 +207,6 @@ void paintBall(int x, int y, int r, CDC* pDC)
 		}
 	}
 }
-
 
 
 
